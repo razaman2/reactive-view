@@ -5,12 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@razaman2/collection-proxy':
+    specifier: ^0.0.1
+    version: 0.0.1
   '@razaman2/data-manager':
     specifier: ^3.2.5
     version: 3.2.5
-  '@razaman2/firestore-proxy':
-    specifier: ^1.2.13
-    version: 1.2.13
   '@razaman2/object-manager':
     specifier: ^3.3.7
     version: 3.3.7
@@ -360,11 +360,26 @@ packages:
     dev: true
     optional: true
 
+  /@razaman2/collection-proxy@0.0.1:
+    resolution: {integrity: sha512-cAXopjpBhGGIGdUztmP+sM6MkI0eooWrhOf3vjRLJxT3yIZj1mhAxNZNa9WuHuaAVYKknHFfhNMihDVCUpTzBQ==}
+    dependencies:
+      '@razaman2/data-manager': 3.2.6
+      '@razaman2/js-factory': 1.2.5
+      '@razaman2/object-manager': 3.3.9
+    dev: false
+
   /@razaman2/data-manager@3.2.5:
     resolution: {integrity: sha512-6QW7FaXAt8XfP2fzGmbkzbG+Nrc0uVxu+tJVDhh0CwWqoEr5Sn34BguSdvZ9cFZNqVPBcHwjHgLJGDSKR84h3A==}
     dependencies:
       '@razaman2/event-emitter': 2.0.14
       '@razaman2/object-manager': 3.3.7
+    dev: false
+
+  /@razaman2/data-manager@3.2.6:
+    resolution: {integrity: sha512-ED7b6RCQtAAXmzIU5Yl9YK5TKjd3ZgXDCx+QHDwKdCHMF74otC+1yZOc2a1UV0MAOXmG5MJQvHBAgPojPk7qhA==}
+    dependencies:
+      '@razaman2/event-emitter': 2.0.14
+      '@razaman2/object-manager': 3.3.9
     dev: false
 
   /@razaman2/event-emitter@2.0.14:
@@ -373,22 +388,18 @@ packages:
       uuid: 9.0.1
     dev: false
 
-  /@razaman2/firestore-proxy@1.2.13:
-    resolution: {integrity: sha512-7D7OAkc1s+zpmiDt4Mh/YNfCeyZ1V2J/YTjyvw5RZ4LOy5oJpRoDmC4/L31/M6fsBLXC2YTv4mGojNdMDlJeQA==}
+  /@razaman2/js-factory@1.2.5:
+    resolution: {integrity: sha512-HWhG5MZ7IvT2Yz4UJFV0DzmsPW04ux8RXJDeHeDnw2cAM5lnRCU/h3OoVF0JK00ojxV2FKGhWZ4R2/haU1cN8w==}
     dependencies:
-      '@razaman2/data-manager': 3.2.5
-      '@razaman2/js-factory': 1.2.3
-      '@razaman2/object-manager': 3.3.7
-    dev: false
-
-  /@razaman2/js-factory@1.2.3:
-    resolution: {integrity: sha512-xtekkWMQrux70+XDcYh1y8Z1DJtMSW9oP1OklL39tSpHC5bhMESwAx2Cqu7KH31Sr6jEaiBIRxt90ru3gLOcUA==}
-    dependencies:
-      '@razaman2/object-manager': 3.3.7
+      '@razaman2/object-manager': 3.3.9
     dev: false
 
   /@razaman2/object-manager@3.3.7:
     resolution: {integrity: sha512-pW8cDC6QS/SFfTfzb3RmDdHkNWU4NYBy5mTSIvO4whdQZHYPjLSEZ1fhYUJMWMZ16bTI5PIgby7hS7u4+45VtQ==}
+    dev: false
+
+  /@razaman2/object-manager@3.3.9:
+    resolution: {integrity: sha512-F5eLxOcVuqTlnpUbzfwSZDdPa53PqJnvPHmd2Qg73mD5yo3GNIEf/NBgpVMwrJdkRwXCF0AZQ6JhCRk+lzGNRg==}
     dev: false
 
   /@rollup/rollup-android-arm-eabi@4.9.1:
