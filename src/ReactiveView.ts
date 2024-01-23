@@ -1,12 +1,12 @@
 import ObjectManager from "@razaman2/object-manager";
 import DataManager from "@razaman2/data-manager";
-import {Collection} from "@razaman2/collection-proxy";
-import type {DataClient} from "@razaman2/data-manager";
-import type {ComponentPublicInstance, SetupContext} from "vue";
-import {access, getSubscription} from "./index";
-import {h, ref, watch, onBeforeUnmount} from "vue";
-import {name, version} from "../package.json";
-import {v4 as uuid} from "uuid";
+import { Collection } from "@razaman2/collection-proxy";
+import type { DataClient } from "@razaman2/data-manager";
+import type { ComponentPublicInstance, SetupContext } from "vue";
+import { access, getSubscription } from "./index";
+import { h, ref, watch, onBeforeUnmount } from "vue";
+import { name, version } from "../package.json";
+import { v4 as uuid } from "uuid";
 
 export const props = {
     defaultData: {},
@@ -24,8 +24,8 @@ export const props = {
         type: String,
         default: "ReactiveView",
     },
-    notifications: {type: Object},
-    root: {type: Function},
+    notifications: { type: Object },
+    root: { type: Function },
     state: {},
     subscriptions: {
         type: Object,
@@ -53,7 +53,7 @@ export default {
             const vnode = context.slots.default
                 ? h("div",
                     context.attrs,
-                    context.slots.default({vue, options, props, context}),
+                    context.slots.default({ vue, options, props, context }),
                 )
                 : h("div", {
                     style: {
@@ -63,7 +63,7 @@ export default {
                     ...context.attrs,
                 }, `${props.modelName}: ${name}@${version}`);
 
-            return context.slots.template?.({vue, vnode}) ?? vnode;
+            return context.slots.template?.({ vue, vnode }) ?? vnode;
         };
 
         const isValid = ref(false);
@@ -94,19 +94,19 @@ export default {
         );
 
         const options = {
-            parent: {self: props},
-            self: {template, isValid, getState, stateRef},
+            parent: { self: props },
+            self: { template, isValid, getState, stateRef },
         };
 
         const setup = props.setup(options) ?? options;
-        const {parent = {}, self = {}, ...rest} = setup;
+        const { parent = {}, self = {}, ...rest } = setup;
 
         let sync = false;
 
         if (context.attrs["onUpdate:modelState"]) {
-            const config: {callback: Function, transform?: Function, options?: {}} = (typeof context.attrs["onUpdate:modelState"] === "function")
-                ? {callback: context.attrs["onUpdate:modelState"]}
-                : context.attrs["onUpdate:modelState"] as {callback: Function, transform?: Function, options?: {}};
+            const config: { callback: Function, transform?: Function, options?: {}; } = (typeof context.attrs["onUpdate:modelState"] === "function")
+                ? { callback: context.attrs["onUpdate:modelState"] }
+                : context.attrs["onUpdate:modelState"] as { callback: Function, transform?: Function, options?: {}; };
 
             const subscriptionName = `\n${props.modelName}\nonUpdate:modelState\n${uuid()}`;
 
@@ -125,37 +125,37 @@ export default {
                 }
             }, config.options);
 
-            props.subscriptions.addSubscription(subscriptionName, subscription);
+            // props.subscriptions.addSubscription(subscriptionName, subscription);
 
-            onBeforeUnmount(() => props.subscriptions.removeSubscription(subscriptionName, false));
+            // onBeforeUnmount(() => props.subscriptions.removeSubscription(subscriptionName, false));
         }
 
         if (context.attrs["onUpdate:propsState"]) {
-            const config: {callback: Function, options?: {}} = (typeof context.attrs["onUpdate:propsState"] === "function")
-                ? {callback: context.attrs["onUpdate:propsState"]}
-                : context.attrs["onUpdate:propsState"] as {callback: Function, options?: {}};
+            const config: { callback: Function, options?: {}; } = (typeof context.attrs["onUpdate:propsState"] === "function")
+                ? { callback: context.attrs["onUpdate:propsState"] }
+                : context.attrs["onUpdate:propsState"] as { callback: Function, options?: {}; };
 
             const subscriptionName = `\n${props.modelName}\nonUpdate:propsState\n${uuid()}`;
 
             const subscription = watch(() => props.state, (after: any, before: any) => {
-                config.callback({before, after}, getState);
+                config.callback({ before, after }, getState);
                 sync = true;
             }, config.options);
 
-            props.subscriptions.addSubscription(subscriptionName, subscription);
+            // props.subscriptions.addSubscription(subscriptionName, subscription);
 
-            onBeforeUnmount(() => props.subscriptions.removeSubscription(subscriptionName, false));
+            // onBeforeUnmount(() => props.subscriptions.removeSubscription(subscriptionName, false));
         }
 
         return ($vue: ComponentPublicInstance & any) => {
-            const setup = {$vue, options: parent};
+            const setup = { $vue, options: parent };
 
             while (setup.options) {
                 Object.defineProperties(setup.$vue, Object.assign({
                     access: {
                         configurable: true,
                         value: () => {
-                            return access({parent, self} as any);
+                            return access({ parent, self } as any);
                         },
                     },
                 }, rest));
@@ -164,7 +164,7 @@ export default {
                 setup.$vue = setup.$vue.$parent;
             }
 
-            return access($vue).template($vue, {parent, self});
+            return access($vue).template($vue, { parent, self });
         };
     },
 };
