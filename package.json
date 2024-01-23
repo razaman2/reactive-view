@@ -1,5 +1,5 @@
 {
-    "name": "@razaman2/reactive-vue",
+    "name": "@razaman2/reactive-view",
     "version": "0.0.2",
     "description": "This library enables you to build vue apps in an object oriented way. It provides a convenient approach to extend and override ui components. It provides a built in eventing system along with component data management.",
     "main": "dist/index.js",
