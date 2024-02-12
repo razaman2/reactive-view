@@ -142,15 +142,12 @@ export default {
         }
 
         if (context.attrs["onUpdate:propsState"] || props.sync) {
-            const config: {
-                callback: Function,
-                options?: {};
-            } = (typeof context.attrs["onUpdate:propsState"] === "function")
+            const config: {callback: Function, options?: {}} = ((typeof context.attrs["onUpdate:propsState"] === "function")
                 ? {callback: context.attrs["onUpdate:propsState"]}
                 : context.attrs["onUpdate:propsState"] as {
                     callback: Function,
                     options?: {};
-                };
+                }) ?? {};
 
             // const subscriptionName = `\n${props.modelName}\nonUpdate:propsState\n${uuid()}`;
 
