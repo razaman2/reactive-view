@@ -3,12 +3,16 @@ import DataManager from "@razaman2/data-manager";
 import {Collection} from "@razaman2/collection-proxy";
 import type {DataClient} from "@razaman2/data-manager";
 import type {ComponentPublicInstance, SetupContext} from "vue";
-import {access, getSubscription} from "./index";
+import {access} from "./index";
 import {h, ref, watch} from "vue";
 import {name, version} from "../package.json";
 
 export const props = {
+    notifications: Object,
+    subscriptions: Object,
     defaultData: {},
+    model: {},
+    state: {},
     getDefaultData: {
         type: Function,
         default: (data = {}) => data,
@@ -18,17 +22,9 @@ export const props = {
             return typeof logging === "boolean";
         },
     },
-    model: {},
     modelName: {
         type: String,
         default: "ReactiveView",
-    },
-    notifications: {type: Object},
-    root: {type: Function},
-    state: {},
-    subscriptions: {
-        type: Object,
-        default: getSubscription(),
     },
     sync: {
         type: Boolean,
@@ -112,12 +108,12 @@ export default {
                 transform?: Function,
                 options?: {};
             } = (typeof context.attrs["onUpdate:modelState"] === "function")
-                ? {callback: context.attrs["onUpdate:modelState"]}
-                : context.attrs["onUpdate:modelState"] as {
-                    callback: Function,
-                    transform?: Function,
-                    options?: {};
-                };
+                    ? {callback: context.attrs["onUpdate:modelState"]}
+                    : context.attrs["onUpdate:modelState"] as {
+                        callback: Function,
+                        transform?: Function,
+                        options?: {};
+                    };
 
             // const subscriptionName = `\n${props.modelName}\nonUpdate:modelState\n${uuid()}`;
 
@@ -142,7 +138,7 @@ export default {
         }
 
         if (context.attrs["onUpdate:propsState"] || props.sync) {
-            const config: {callback: Function, options?: {}} = ((typeof context.attrs["onUpdate:propsState"] === "function")
+            const config: {callback: Function, options?: {};} = ((typeof context.attrs["onUpdate:propsState"] === "function")
                 ? {callback: context.attrs["onUpdate:propsState"]}
                 : context.attrs["onUpdate:propsState"] as {
                     callback: Function,
